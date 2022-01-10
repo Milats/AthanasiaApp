@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">AthanasiaApp</string>
+    //TODO: Cambiar las url en cuanto el sitio esté desplegado
     <string name="athanasia_api_url">http://10.0.2.2:5295/api/product</string>
-    <string name="icon_athanasia_url">https://image.api.playstation.com/vulcan/img/rnd/202008/2202/YJhAag1oH8xIZdinkG8KrkF2.png</string>
+    <string name="athanasia_icon_url">https://image.api.playstation.com/vulcan/img/rnd/202008/2202/YJhAag1oH8xIZdinkG8KrkF2.png</string>
+    <string name="athanasia_client_login_url">http://10.0.2.2:5295/api/userClient/login</string>
 
     <string name="product_image_description">Image that show the product</string>
 
