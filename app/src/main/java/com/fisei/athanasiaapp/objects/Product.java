@@ -34,14 +34,13 @@ public class Product {
     public final String iconURL;
 
     public Product(String id, String name, String genre, int quantity,
-                   double unitPrice, double cost, String imageUrlStart,
-                   String iconURL, String imageUrlEnd){
+                   double unitPrice, double cost, String iconUrl){
         this.id = id;
         this.name = name;
         this.genre = genre;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.cost = cost;
-        this.iconURL =  imageUrlStart + iconURL + imageUrlEnd;
+        this.iconURL = iconUrl;
     }
 }

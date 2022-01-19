@@ -106,9 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         products.getInt("quantity"),
                         products.getDouble("unitPrice"),
                         products.getDouble("cost"),
-                        getString(R.string.athanasia_icon_url),
-                        "",
-                        ""));
+                        getString(R.string.athanasia_icon_url) + products.getString("genre")));
             }
         } catch (JSONException ex){
             ex.printStackTrace();
