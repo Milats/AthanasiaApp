@@ -1,8 +1,6 @@
 package com.fisei.athanasiaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
     private class GetProductsTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params){

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">AthanasiaApp</string>
+    <string name="name">Athanasia</string>
     //TODO: Cambiar las url en cuanto el sitio esté desplegado
-    <string name="athanasia_api_url">http://10.0.2.2:5295/api/product</string>
+    <string name="athanasia_api_url">http://nilats-001-site1.itempurl.com/api/product</string>
     <string name="athanasia_icon_url">https://i.ibb.co/</string>
     <string name="athanasia_client_login_url">http://10.0.2.2:5295/api/userClient/login</string>
 
@@ -9,5 +10,14 @@
 
     <string name="read_error">Unable to read products data.</string>
     <string name="connect_error">Unable to connect to AthanasiaApi.</string>
+
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_login">Log In</string>
+    <string name="label_signup">Sign Up</string>
+    <string name="label_new_user">New? Create an account here!</string>
+    <string name="label_wrong_email_password">The email or password are incorrect.</string>
+    <string name="email_example">example@athanasia.com</string>
+    <string name="password_example">*********</string>
 
 </resources>
