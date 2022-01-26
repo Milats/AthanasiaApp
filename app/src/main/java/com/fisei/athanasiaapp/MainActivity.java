@@ -32,11 +32,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Inicializa componentes
         recyclerView = (ListView) findViewById(R.id.productsRecyclerView);
         productArrayAdapter = new ProductArrayAdapter(this, productList);
         recyclerView.setAdapter(productArrayAdapter);
 
         try {
+            //Realiza la petición GET de la lista de productos en un tarea asincrónica
             URL url = new URL(getString(R.string.athanasia_api_url));
             GetProductsTask getProductsTask = new GetProductsTask();
             getProductsTask.execute(url);
@@ -83,17 +85,17 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
         @Override
-        protected void onPostExecute(JSONObject weather){
-            convertJSONtoArrayList(weather);
+        protected void onPostExecute(JSONObject jsonObject){
+            convertJSONtoArrayList(jsonObject);
             productArrayAdapter.notifyDataSetChanged();
             recyclerView.smoothScrollToPosition(0);
         }
     }
-    private void convertJSONtoArrayList(JSONObject forecast){
+    private void convertJSONtoArrayList(JSONObject jsonObject){
         productList.clear();
         try{
             //El JSON que se recibe contiene los productos en el atributo "data"
-            JSONArray list = forecast.getJSONArray("data");
+            JSONArray list = jsonObject.getJSONArray("data");
             for(int i = 0; i < list.length(); ++i){
                 JSONObject products = list.getJSONObject(i);
                 productList.add(new Product(

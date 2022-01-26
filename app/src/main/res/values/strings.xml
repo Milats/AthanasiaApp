@@ -3,8 +3,8 @@
     <string name="name">Athanasia</string>
     //TODO: Cambiar las url en cuanto el sitio esté desplegado
     <string name="athanasia_api_url">http://nilats-001-site1.itempurl.com/api/product</string>
+    <string name="athanasia_client_login_url">http://nilats-001-site1.itempurl.com/api/userClient/login</string>
     <string name="athanasia_icon_url">https://i.ibb.co/</string>
-    <string name="athanasia_client_login_url">http://10.0.2.2:5295/api/userClient/login</string>
 
     <string name="product_image_description">Image that show the product</string>
 
