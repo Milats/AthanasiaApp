@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.fisei.athanasiaapp.objects.Product;
 import com.fisei.athanasiaapp.objects.UserClient;
 import com.fisei.athanasiaapp.services.UserClientService;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +26,8 @@ import com.fisei.athanasiaapp.databinding.ActAthanasiaBinding;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AthanasiaActivity extends AppCompatActivity {
 
@@ -32,13 +35,12 @@ public class AthanasiaActivity extends AppCompatActivity {
     private ActAthanasiaBinding binding;
 
     private Bundle user = new Bundle();
-    public UserClient userClient = new UserClient();
+    public static UserClient userClient = new UserClient();
+    public List<Product> shoppingCart = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         user = getIntent().getExtras();
-        userClient.ID = user.getInt("id");
-
         super.onCreate(savedInstanceState);
 
         binding = ActAthanasiaBinding.inflate(getLayoutInflater());
@@ -77,7 +79,7 @@ public class AthanasiaActivity extends AppCompatActivity {
     private class GetUserClientInfoTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
-            userClient = UserClientService.GetUserInfoByID(userClient.ID);
+            userClient = UserClientService.GetUserInfoByID(user.getInt("id"));
             userClient.JWT = user.getString("token");
             return null;
         }

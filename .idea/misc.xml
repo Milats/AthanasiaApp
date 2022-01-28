@@ -15,14 +15,17 @@
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/fragment_gallery.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/fragment_products.xml" value="0.20416666666666666" />
+        <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/fragment_shop_cart.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/fragment_slideshow.xml" value="0.20416666666666666" />
-        <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/list_item_product.xml" value="0.1" />
+        <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/list_item_product.xml" value="0.22" />
+        <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/list_item_shop_cart.xml" value="0.22" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/nav_header_athanasia.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/nav_header_athanasia2.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/products_fragment.xml" value="0.15" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/layout/products_layout.xml" value="0.18" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/menu/act_athanasia_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/menu/athanasia.xml" value="0.1" />
+        <entry key="..\:/israe/Proyectos/Athanasia/AthanasiaApp/app/src/main/res/menu/contextual_product.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

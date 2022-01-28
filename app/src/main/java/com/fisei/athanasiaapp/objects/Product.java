@@ -7,7 +7,7 @@ public class Product {
     public final int quantity;
     public final double unitPrice;
     public final double cost;
-    public final String iconURL;
+    public final String imageURL;
 
     public Product(String id, String name, String genre, int quantity,
                    double unitPrice, double cost, String iconUrl){
@@ -17,6 +17,6 @@ public class Product {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.cost = cost;
-        this.iconURL = iconUrl;
+        this.imageURL = iconUrl;
     }
 }
