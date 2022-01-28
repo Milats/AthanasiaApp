@@ -1,4 +1,5 @@
 package com.fisei.athanasiaapp.adapters;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -65,14 +66,11 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         } else {
             new LoadImageTask(viewHolder.productImageView).execute(product.iconURL);
         }
-        //Context context = getContext();
         viewHolder.productNameView.setText(product.name);
         viewHolder.productGenreView.setText(product.genre);
         viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice));
         return convertView;
     }
-    /*TODO: Este método ha sido copiado y pegado tal cual para que los métodos anteriores
-    *  no muestren error por lo que es improtante revisarlo y adaptarlo*/
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
         private ImageView imageView;
         public LoadImageTask(ImageView imageView){
