@@ -2,6 +2,7 @@ package com.fisei.athanasiaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,20 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.fisei.athanasiaapp.objects.UserClient;
 import com.fisei.athanasiaapp.services.UserClientService;
-
 import org.json.JSONObject;
-
 import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwdEditText;
-    private Button loginButton;
-    private Button signUpButton;
     private TextView warningTextView;
 
     @Override
@@ -41,16 +37,15 @@ public class LoginActivity extends AppCompatActivity {
         protected JSONObject doInBackground(URL... urls) {
             UserClient user = UserClientService.Login(emailEditText.getText().toString(), passwdEditText.getText().toString());
             if(user.JWT != null){
-                StartMainActivity(user);
+                StartAthanasiaActivity(user);
             } else {
-                warningTextView.setText("Invalid email or password");
+                warningTextView.setText(R.string.label_wrong_email_password);
             }
             return null;
         }
-
     }
-    private void StartMainActivity(UserClient userLogged){
-        Intent loginSuccesful = new Intent(this, MainActivity.class);
+    private void StartAthanasiaActivity(UserClient userLogged){
+        Intent loginSuccesful = new Intent(this, AthanasiaActivity.class);
         loginSuccesful.putExtra("id", userLogged.ID);
         loginSuccesful.putExtra("token", userLogged.JWT);
         startActivity(loginSuccesful);
@@ -58,9 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     private void InitializeViewComponents(){
         emailEditText = findViewById(R.id.editTextEmailLogin);
         passwdEditText = findViewById(R.id.editTextPassword);
-        loginButton = findViewById(R.id.btnLogin);
+        Button loginButton = findViewById(R.id.btnLogin);
         loginButton.setOnClickListener(loginButtonClicked);
-        signUpButton = findViewById(R.id.btnSignUp);
+        Button signUpButton = findViewById(R.id.btnSignUp);
         warningTextView = findViewById(R.id.textViewLoginFailed);
     }
     private final View.OnClickListener loginButtonClicked = view -> Login();
