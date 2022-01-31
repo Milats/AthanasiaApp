@@ -1,7 +1,7 @@
 package com.fisei.athanasiaapp.objects;
 
 public class Product {
-    public final String id;
+    public final int id;
     public final String name;
     public final String genre;
     public final int quantity;
@@ -9,7 +9,7 @@ public class Product {
     public final double cost;
     public final String imageURL;
 
-    public Product(String id, String name, String genre, int quantity,
+    public Product(int id, String name, String genre, int quantity,
                    double unitPrice, double cost, String iconUrl){
         this.id = id;
         this.name = name;

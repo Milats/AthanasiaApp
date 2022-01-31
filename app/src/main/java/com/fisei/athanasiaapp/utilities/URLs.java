@@ -1,4 +1,4 @@
-package com.fisei.athanasiaapp.models;
+package com.fisei.athanasiaapp.utilities;
 
 public class URLs {
     //Client

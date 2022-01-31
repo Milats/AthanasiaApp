@@ -1,6 +1,6 @@
 package com.fisei.athanasiaapp.services;
 
-import com.fisei.athanasiaapp.models.URLs;
+import com.fisei.athanasiaapp.utilities.URLs;
 import com.fisei.athanasiaapp.objects.Product;
 
 import org.json.JSONArray;
@@ -37,7 +37,7 @@ public class ProductService {
                 for(int i = 0; i < list.length(); ++i){
                     JSONObject products = list.getJSONObject(i);
                     productList.add(new Product(
-                            products.getString("id"),
+                            products.getInt("id"),
                             products.getString("name"),
                             products.getString("genre"),
                             products.getInt("quantity"),

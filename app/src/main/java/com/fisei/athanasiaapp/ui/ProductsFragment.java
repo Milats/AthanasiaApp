@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.fisei.athanasiaapp.MainActivity;
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ProductArrayAdapter;
 import com.fisei.athanasiaapp.objects.Product;
@@ -35,7 +34,6 @@ public class ProductsFragment extends Fragment {
         ProductsFragment fragment = new ProductsFragment();
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

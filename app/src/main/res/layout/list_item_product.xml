@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:layout_margin="10dp">
+        android:layout_margin="@dimen/product_info_margin">
 
         <TextView
             android:id="@+id/productNameTextView"
@@ -31,7 +31,7 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/productImageView"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/product_image_width"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:contentDescription="@string/product_image_description"

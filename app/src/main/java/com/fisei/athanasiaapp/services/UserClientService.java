@@ -2,7 +2,7 @@ package com.fisei.athanasiaapp.services;
 
 import android.util.Log;
 
-import com.fisei.athanasiaapp.models.URLs;
+import com.fisei.athanasiaapp.utilities.URLs;
 import com.fisei.athanasiaapp.objects.UserClient;
 
 import org.json.JSONArray;

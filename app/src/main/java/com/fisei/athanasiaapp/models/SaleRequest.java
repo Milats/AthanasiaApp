@@ -1,7 +1,5 @@
 package com.fisei.athanasiaapp.models;
 
-import com.fisei.athanasiaapp.objects.SaleDetails;
-
 import java.util.List;
 
 public class SaleRequest {

@@ -3,50 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/shopItemImageView"
-        android:layout_width="@dimen/image_side_length"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/product_image_description"
-        android:scaleType="fitCenter"/>
-    <androidx.gridlayout.widget.GridLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        app:rowCount="3"
-        app:columnCount="3"
-        app:useDefaultMargins="true">
+        android:orientation="vertical"
+        android:layout_margin="@dimen/product_info_margin">
         <TextView
             android:id="@+id/shopItemNameTextView"
-            app:layout_row="0"
-            app:layout_columnSpan="3"
-            app:layout_rowWeight="1"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/product_texts"/>
         <TextView
             android:id="@+id/shopItemUnitPriceTextView"
-            app:layout_row="1"
-            app:layout_columnSpan="3"
-            app:layout_rowWeight="1"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/product_texts"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnMinusQty"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:drawableTop="@drawable/ic_baseline_horizontal_rule_24"/>
+            <TextView
+                android:id="@+id/shopItemQtyTextView"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="34sp" />
+            <Button
+                android:id="@+id/btnPlusQty"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:drawableTop="@drawable/ic_baseline_add_24"/>
+        </LinearLayout>
         <Button
-            android:id="@+id/btnPlusQty"
-            android:text="-"
-            app:layout_row="2"
-            app:layout_column="0"
-            app:layout_columnWeight="1"/>
-        <TextView
-            android:id="@+id/shopItemQtyTextView"
-            android:text="0"
-            app:layout_row="2"
-            app:layout_column="1"
-            app:layout_columnWeight="3"/>
-        <Button
-            android:id="@+id/btnMinusQty"
-            android:text="+"
-            app:layout_row="2"
-            app:layout_column="2"
-            app:layout_columnWeight="1"/>
-    </androidx.gridlayout.widget.GridLayout>
+            android:id="@+id/btnCartQuit"
+            android:layout_height="@dimen/product_button_height"
+            android:layout_width="match_parent"
+            android:drawableTop="@drawable/ic_baseline_delete_forever_24"
+            android:backgroundTint="@color/button_delete"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/shopItemImageView"
+        android:layout_width="@dimen/product_image_width"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/product_image_description"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        tools:srcCompat="@tools:sample/avatars" />
 </LinearLayout>

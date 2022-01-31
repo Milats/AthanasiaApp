@@ -1,4 +1,4 @@
-package com.fisei.athanasiaapp.objects;
+package com.fisei.athanasiaapp.models;
 
 public class SaleDetails {
     public int ProductID;

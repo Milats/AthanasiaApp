@@ -2,9 +2,7 @@ package com.fisei.athanasiaapp.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.fisei.athanasiaapp.R;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.Product;
+import com.fisei.athanasiaapp.objects.ShopCartItem;
 import com.fisei.athanasiaapp.services.ImageService;
 
 public class ProductArrayAdapter extends ArrayAdapter<Product> {
@@ -33,7 +25,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         Un ImageView para la imagen del producto y TextViews para campos
         relevantes a mostrar como el nombre, el género y el precio.
         La cantidad no se muestra directamente sino que en detalles de producto.
-        */
+      */
     private static class ViewHolder{
         ImageView productImageView;
         TextView productNameView;
@@ -41,7 +33,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         Button productAddToCartButton;
     }
     //Renderizar la imagen.
-    private Map<String, Bitmap> bitmaps = new HashMap<>();
+    private final Map<String, Bitmap> bitmaps = new HashMap<>();
     //Constructor
     public ProductArrayAdapter(Context context, List<Product> productsList){
         super(context, -1, productsList);
@@ -49,7 +41,6 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent){
         Product product = getItem(position);
         ViewHolder viewHolder;
-
         if(convertView == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -67,18 +58,13 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         } else {
             new LoadImageTask(viewHolder.productImageView).execute(product.imageURL);
         }
-
         viewHolder.productNameView.setText(product.name);
         viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice));
-        viewHolder.productAddToCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), product.id + " / "  + product.name, Toast.LENGTH_SHORT).show();
-                //viewHolder.productAddToCartButton.setEnabled(false);
-            }
+        UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(product.id));
+        viewHolder.productAddToCartButton.setOnClickListener(view -> {
+            UnableButton(viewHolder.productAddToCartButton, false);
+            AddToShoppingCart(product);
         });
-        convertView.setTag(viewHolder);
-
         return convertView;
     }
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -96,5 +82,19 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         protected void onPostExecute(Bitmap bitmap){
             imageView.setImageBitmap(bitmap);
         }
+    }
+    private void UnableButton(Button btn, boolean b){
+            btn.setEnabled(b);
+    }
+    private Boolean RememberIfButtonWasSelected(int id){
+        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+            if (item.Id == id) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private void AddToShoppingCart(Product p){
+        AthanasiaGlobal.SHOPPING_CART.add(new ShopCartItem(p.id, p.name, p.imageURL, 1, p.unitPrice));
     }
 }
