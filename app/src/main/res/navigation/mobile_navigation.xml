@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_orders"
-        android:name="com.fisei.athanasiaapp.ui.gallery.GalleryFragment"
+        android:name="com.fisei.athanasiaapp.ui.MyOrdersFragment"
         android:label="@string/menu_orders"
         tools:layout="@layout/fragment_gallery" />
 

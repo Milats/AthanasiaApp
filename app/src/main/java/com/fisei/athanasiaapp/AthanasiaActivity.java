@@ -36,7 +36,6 @@ public class AthanasiaActivity extends AppCompatActivity {
 
     private Bundle user = new Bundle();
     public static UserClient userClient = new UserClient();
-    public List<Product> shoppingCart = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,6 @@ public class AthanasiaActivity extends AppCompatActivity {
 
         GetUserClientInfoTask getUserClientInfo = new GetUserClientInfoTask();
         getUserClientInfo.execute();
-        int a = 0;
     }
 
     @Override
@@ -76,6 +74,7 @@ public class AthanasiaActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_athanasia);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
+
     private class GetUserClientInfoTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
