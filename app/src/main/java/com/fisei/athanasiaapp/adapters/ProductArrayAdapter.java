@@ -30,6 +30,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         ImageView productImageView;
         TextView productNameView;
         TextView productUnitPriceView;
+        TextView productQtyView;
         Button productAddToCartButton;
     }
     //Renderizar la imagen.
@@ -49,6 +50,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             viewHolder.productNameView = (TextView) convertView.findViewById(R.id.productNameTextView);
             viewHolder.productUnitPriceView = (TextView) convertView.findViewById(R.id.productUnitPriceTextView);
             viewHolder.productAddToCartButton = (Button) convertView.findViewById(R.id.productAddToCartBtn);
+            viewHolder.productQtyView = (TextView) convertView.findViewById(R.id.productQtyTextView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -59,7 +61,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             new LoadImageTask(viewHolder.productImageView).execute(product.imageURL);
         }
         viewHolder.productNameView.setText(product.name);
-        viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice));
+        viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice + " $"));
+        viewHolder.productQtyView.setText(String.format("%s", product.quantity));
         UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(product.id));
         viewHolder.productAddToCartButton.setOnClickListener(view -> {
             UnableButton(viewHolder.productAddToCartButton, false);
@@ -95,6 +98,6 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         return true;
     }
     private void AddToShoppingCart(Product p){
-        AthanasiaGlobal.SHOPPING_CART.add(new ShopCartItem(p.id, p.name, p.imageURL, 1, p.unitPrice));
+        AthanasiaGlobal.SHOPPING_CART.add(new ShopCartItem(p.id, p.name, p.imageURL, 1, p.unitPrice, p.quantity));
     }
 }

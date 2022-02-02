@@ -6,6 +6,21 @@
     android:orientation="vertical"
     tools:context=".ui.ShopCartFragment">
 
+    <Button
+        android:id="@+id/btnCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/checkout_button_height"
+        android:text="@string/checkout_button_text"
+        android:layout_margin="@dimen/product_info_margin"/>
+
+    <TextView
+        android:id="@+id/textViewTotalShop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/total_text"
+        android:textAlignment="textEnd"
+        android:textSize="24sp"
+        android:layout_margin="@dimen/product_info_margin"/>
+
     <ListView
         android:id="@+id/listViewShopCartFragment"
         android:layout_width="match_parent"

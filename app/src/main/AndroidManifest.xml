@@ -14,6 +14,9 @@
         android:theme="@style/Theme.AthanasiaApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SingUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".AthanasiaActivity"
             android:exported="false"
             android:label="@string/title_activity_athanasia"

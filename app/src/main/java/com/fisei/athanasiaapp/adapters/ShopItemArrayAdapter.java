@@ -62,10 +62,10 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
             new LoadImageTask(viewHolder.shopCartItemImage).execute(item.ImageURL);
         }
         viewHolder.shopCartItemName.setText(item.Name);
-        viewHolder.shopCartItemUnitPrice.setText(String.format("%s", item.UnitPrice));
+        viewHolder.shopCartItemUnitPrice.setText(String.format("%s", item.UnitPrice + " $"));
         viewHolder.shopCartItemQty.setText(String.format("%s", item.Quantity));
         viewHolder.shopCartDeleteItem.setOnClickListener(view -> { DeleteFromCart(item.Id); });
-        viewHolder.shopCartItemPlusQty.setOnClickListener(view ->{ AddQty(item.Id);} );
+        viewHolder.shopCartItemPlusQty.setOnClickListener(view ->{ AddQty(item.Id, item.MaxQty);} );
         viewHolder.shopCartItemMinusQty.setOnClickListener(view ->{ ReduceQty(item.Id);} );
         return convertView;
     }
@@ -86,9 +86,9 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         }
     }
 
-    private void AddQty(int id){
+    private void AddQty(int id, int qty){
         for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
-            if(item.Id == id){
+            if(item.Id == id && item.Quantity < qty){
                 item.Quantity++;
                 break;
             }
@@ -113,7 +113,7 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         }
         UpdateArrayAdapter();
     }
-    private void UpdateArrayAdapter(){
+    public void UpdateArrayAdapter(){
         List<ShopCartItem> list = new ArrayList<>();
         this.clear();
         list = AthanasiaGlobal.SHOPPING_CART;

@@ -10,4 +10,5 @@ public class SaleRequest {
         this.UserClientID = id;
         this.SaleDetails = details;
     }
+    public SaleRequest(){}
 }

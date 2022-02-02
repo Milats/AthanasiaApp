@@ -45,7 +45,7 @@ public class ProductsFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_products, container, false);
         listView = (ListView) view.findViewById(R.id.listViewProductFragment);
-        productArrayAdapter = new ProductArrayAdapter(getContext(), productList);
+        productArrayAdapter = new ProductArrayAdapter(getContext(), QuitProductsWith0Qty(productList));
         GetProductsTask getProductsTask = new GetProductsTask();
         getProductsTask.execute();
 
@@ -57,15 +57,25 @@ public class ProductsFragment extends Fragment {
         protected JSONObject doInBackground(URL... params) {
             productList.clear();
             productList = ProductService.GetAllProducts();
+            productList = QuitProductsWith0Qty(productList);
             return null;
         }
         @Override
         protected void onPostExecute(JSONObject jsonObject){
             productArrayAdapter.clear();
-            productArrayAdapter.addAll(productList);
+            productArrayAdapter.addAll(QuitProductsWith0Qty(productList));
             productArrayAdapter.notifyDataSetChanged();
             listView.setAdapter(productArrayAdapter);
+        }
+    }
+
+    private List<Product> QuitProductsWith0Qty(List<Product> list){
+        for (int x = 0; x < list.size(); x++) {
+            if(list.get(x).quantity == 0){
+                list.remove(x);
+            }
 
         }
+        return list;
     }
 }

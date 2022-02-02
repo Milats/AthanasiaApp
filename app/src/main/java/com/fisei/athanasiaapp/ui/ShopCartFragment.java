@@ -1,5 +1,6 @@
 package com.fisei.athanasiaapp.ui;
 
+import android.database.DataSetObserver;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -8,13 +9,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ShopItemArrayAdapter;
+import com.fisei.athanasiaapp.models.SaleDetails;
+import com.fisei.athanasiaapp.models.SaleRequest;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.Product;
 import com.fisei.athanasiaapp.objects.ShopCartItem;
+import com.fisei.athanasiaapp.services.ProductService;
+import com.fisei.athanasiaapp.services.SaleService;
 
 import org.json.JSONObject;
 
@@ -24,9 +32,12 @@ import java.util.List;
 
 public class ShopCartFragment extends Fragment {
 
-    private List<Product> productList = new ArrayList<>();
     private ShopItemArrayAdapter itemArrayAdapter;
     private ListView listView;
+    private TextView total;
+    private Button checkout;
+
+    private Boolean SuccesfulSale = false;
 
     public ShopCartFragment() {
     }
@@ -39,20 +50,73 @@ public class ShopCartFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
-        List<ShopCartItem> list = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_shop_cart, container, false);
+        List<ShopCartItem> list = new ArrayList<>();
+        checkout = view.findViewById(R.id.btnCheckout);
         listView = (ListView) view.findViewById(R.id.listViewShopCartFragment);
+        total = (TextView) view.findViewById(R.id.textViewTotalShop);
         itemArrayAdapter = new ShopItemArrayAdapter(getContext(), list);
+
+        checkout.setOnClickListener(view1 -> { ExecuteSaleTask(); });
         itemArrayAdapter.clear();
         list = AthanasiaGlobal.SHOPPING_CART;
         itemArrayAdapter.addAll(list);
-        //itemArrayAdapter.notifyDataSetChanged();
+        itemArrayAdapter.notifyDataSetChanged();
         listView.setAdapter(itemArrayAdapter);
 
+        checkout.setEnabled(!CheckIsListViewIsEmpty(listView));
+        UpdateTotalView(total);
+        itemArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                checkout.setEnabled(!CheckIsListViewIsEmpty(listView));
+                UpdateTotalView(total);
+            }
+        });
         return view;
+    }
+    class AddSaleTask extends AsyncTask<URL, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(URL... params) {
+            SaleRequest sale = new SaleRequest();
+            List<SaleDetails> details = new ArrayList<>();
+            for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+                details.add(new SaleDetails(item.Id, item.Quantity));
+            }
+            sale.UserClientID = AthanasiaGlobal.ACTUAL_USER.ID;
+            sale.SaleDetails = details;
+            SuccesfulSale = SaleService.AddNewSale(sale);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(JSONObject jsonObject){
+            if(SuccesfulSale){
+                Toast.makeText(getContext(), "Succesful Sale", Toast.LENGTH_SHORT).show();
+                AthanasiaGlobal.SHOPPING_CART.removeAll(AthanasiaGlobal.SHOPPING_CART);
+                itemArrayAdapter.UpdateArrayAdapter();
+            } else {
+                Toast.makeText(getContext(), "Failed Sale", Toast.LENGTH_SHORT).show();
+            }
+            SuccesfulSale = false;
+        }
+    }
+
+    private void ExecuteSaleTask(){
+        AddSaleTask task = new AddSaleTask();
+        task.execute();
+    }
+    private Boolean CheckIsListViewIsEmpty(ListView lW){
+        return lW.getAdapter().isEmpty();
+    }
+    private void UpdateTotalView(TextView totalView){
+        double total = 0;
+        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+            total += item.UnitPrice * item.Quantity;
+        }
+        total *= 1.1;
+        totalView.setText( "Total: " + String. format("%.2f", total)+ " $" );
     }
 }

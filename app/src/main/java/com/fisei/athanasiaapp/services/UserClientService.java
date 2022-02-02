@@ -2,6 +2,8 @@ package com.fisei.athanasiaapp.services;
 
 import android.util.Log;
 
+import com.fisei.athanasiaapp.models.ResponseAthanasia;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.utilities.URLs;
 import com.fisei.athanasiaapp.objects.UserClient;
 
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -31,7 +34,6 @@ public class UserClientService {
             connection.setDoInput(true);
             String jsonInput = "{\"Email\": \"" + email +
                     "\",\"Password\": \"" + passwd + "\"}";
-            Log.d("Debug", jsonInput);
             try(OutputStream os = connection.getOutputStream()){
                 byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
@@ -93,5 +95,50 @@ public class UserClientService {
             }
         }
         return user;
+    }
+    public static ResponseAthanasia SignUpNewUser(UserClient newUser, String newPasswd){
+        ResponseAthanasia responseAth = new ResponseAthanasia(false, "An unexpected error ocurred");
+        HttpURLConnection connection = null;
+        try{
+            URL url = new URL(URLs.SIGN_UP);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoInput(true);
+
+            String jsonInput = "{\"name\": \""+ newUser.Name + "\"," +
+                    " \"email\": \"" + newUser.Email +  "\"," +
+                    " \"password\": \"" + newPasswd +  "\"," +
+                    " \"cedula\": \"" + newUser.Cedula +  "\"}";
+            try(OutputStream os = connection.getOutputStream()){
+                byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            int responseCode = connection.getResponseCode();
+            StringBuilder response = new StringBuilder();
+            JSONObject jsonObject = null;
+            if(responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_BAD_REQUEST){
+                try(BufferedReader bR = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))){
+                    String responseLine = null;
+                    while((responseLine = bR.readLine()) != null){
+                        response.append(responseLine.trim());
+                    }
+                }
+                jsonObject = new JSONObject(response.toString());
+            }
+
+            if(responseCode == HttpURLConnection.HTTP_OK && jsonObject != null){
+
+            }
+            responseAth.Success = true;
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return responseAth;
     }
 }

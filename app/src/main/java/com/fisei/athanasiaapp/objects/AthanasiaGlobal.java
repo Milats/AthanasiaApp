@@ -7,4 +7,6 @@ public class AthanasiaGlobal {
     public static List<ShopCartItem> SHOPPING_CART = new ArrayList<>();
     public static List<Product> PRODUCTS_CHOSEN = new ArrayList<>();
 
+    public static UserClient ACTUAL_USER = new UserClient();
+
 }
