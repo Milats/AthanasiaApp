@@ -16,12 +16,11 @@ import android.widget.Toast;
 
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ShopItemArrayAdapter;
+import com.fisei.athanasiaapp.dialog.CheckoutDialogFragment;
 import com.fisei.athanasiaapp.models.SaleDetails;
 import com.fisei.athanasiaapp.models.SaleRequest;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.Product;
 import com.fisei.athanasiaapp.objects.ShopCartItem;
-import com.fisei.athanasiaapp.services.ProductService;
 import com.fisei.athanasiaapp.services.SaleService;
 
 import org.json.JSONObject;
@@ -41,10 +40,6 @@ public class ShopCartFragment extends Fragment {
 
     public ShopCartFragment() {
     }
-    public static ShopCartFragment newInstance(String param1, String param2) {
-        ShopCartFragment fragment = new ShopCartFragment();
-        return fragment;
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +55,7 @@ public class ShopCartFragment extends Fragment {
         total = (TextView) view.findViewById(R.id.textViewTotalShop);
         itemArrayAdapter = new ShopItemArrayAdapter(getContext(), list);
 
-        checkout.setOnClickListener(view1 -> { ExecuteSaleTask(); });
+        checkout.setOnClickListener(view1 -> { OpenDialog(); });
         itemArrayAdapter.clear();
         list = AthanasiaGlobal.SHOPPING_CART;
         itemArrayAdapter.addAll(list);
@@ -77,6 +72,30 @@ public class ShopCartFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private Boolean CheckIsListViewIsEmpty(ListView lW){
+        return lW.getAdapter().isEmpty();
+    }
+    private void UpdateTotalView(TextView totalView){
+        double total = 0;
+        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+            total += item.UnitPrice * item.Quantity;
+        }
+        total *= 1.1;
+        totalView.setText( "Total: " + String. format("%.2f", total)+ " $" );
+    }
+    private void OpenDialog(){
+        Bundle bundleDialog = new Bundle();
+        CheckoutDialogFragment dialog = new CheckoutDialogFragment();
+        dialog.setTargetFragment(getTargetFragment(), 0);
+        bundleDialog.putString("title", "Are you sure?");
+        dialog.show(this.getChildFragmentManager(), "Quiz Results");
+    }
+
+    public void ExecuteSaleTask(){
+        AddSaleTask task = new AddSaleTask();
+        task.execute();
     }
     class AddSaleTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
@@ -95,28 +114,12 @@ public class ShopCartFragment extends Fragment {
         protected void onPostExecute(JSONObject jsonObject){
             if(SuccesfulSale){
                 Toast.makeText(getContext(), "Succesful Sale", Toast.LENGTH_SHORT).show();
-                AthanasiaGlobal.SHOPPING_CART.removeAll(AthanasiaGlobal.SHOPPING_CART);
+                AthanasiaGlobal.SHOPPING_CART.clear();
                 itemArrayAdapter.UpdateArrayAdapter();
             } else {
                 Toast.makeText(getContext(), "Failed Sale", Toast.LENGTH_SHORT).show();
             }
             SuccesfulSale = false;
         }
-    }
-
-    private void ExecuteSaleTask(){
-        AddSaleTask task = new AddSaleTask();
-        task.execute();
-    }
-    private Boolean CheckIsListViewIsEmpty(ListView lW){
-        return lW.getAdapter().isEmpty();
-    }
-    private void UpdateTotalView(TextView totalView){
-        double total = 0;
-        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
-            total += item.UnitPrice * item.Quantity;
-        }
-        total *= 1.1;
-        totalView.setText( "Total: " + String. format("%.2f", total)+ " $" );
     }
 }

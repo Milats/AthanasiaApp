@@ -70,10 +70,10 @@ public class ProductsFragment extends Fragment {
     }
     private List<Product> QuitProductsWith0Qty(List<Product> list){
         for (int x = 0; x < list.size(); x++) {
-            if(list.get(x).quantity == 0){
-                list.remove(x);
-            }
-
+                if (list.get(x).quantity == 0) {
+                    list.remove(x);
+                    x = 0;
+                }
         }
         return list;
     }

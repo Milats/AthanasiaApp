@@ -73,7 +73,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject){
             orderArrayAdapter.notifyDataSetChanged();
             listViewOrderDetails.setAdapter(orderArrayAdapter);
-            orderDetails.clear();
+            //orderDetails.clear();
         }
     }
     private OrderDetail ConvertProductToOrderDetail(Product product, int qty){

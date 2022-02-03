@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +63,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             new LoadImageTask(viewHolder.productImageView).execute(product.imageURL);
         }
         viewHolder.productNameView.setText(product.name);
-        viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice + " $"));
-        viewHolder.productQtyView.setText(String.format("%s", product.quantity));
+        viewHolder.productUnitPriceView.setText(String.format("%s", "Unit Price: " + product.unitPrice + " $"));
+        viewHolder.productQtyView.setText(String.format("%s", "Quantity: " + product.quantity));
         UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(product.id));
         viewHolder.productAddToCartButton.setOnClickListener(view -> {
             UnableButton(viewHolder.productAddToCartButton, false);
@@ -99,5 +101,6 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     }
     private void AddToShoppingCart(Product p){
         AthanasiaGlobal.SHOPPING_CART.add(new ShopCartItem(p.id, p.name, p.imageURL, 1, p.unitPrice, p.quantity));
+        Toast.makeText(getContext(), "Item " + p.name + " added to cart", Toast.LENGTH_SHORT).show();
     }
 }

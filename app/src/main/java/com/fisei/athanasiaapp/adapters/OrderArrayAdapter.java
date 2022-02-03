@@ -42,9 +42,9 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.orderDateView.setText(order.Date.toString());
-        viewHolder.orderIDView.setText(String.format("%s", order.ID));
-        viewHolder.orderTotalView.setText(String.format("%s", order.Total + " $"));
+        viewHolder.orderDateView.setText("Date: " + ConvertDate(order.Date));
+        viewHolder.orderIDView.setText(String.format("%s", "Order ID: " +  order.ID));
+        viewHolder.orderTotalView.setText(String.format("%s", "Total: " + order.Total + " $"));
         viewHolder.orderInfoBtn.setOnClickListener(view -> {
             ShowOrderDetails(order);
         });
@@ -58,5 +58,26 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         orderDetails.putExtra("orderDate", order.Date);
         orderDetails.putExtra("orderTotal", order.Total);
         getContext().startActivity(orderDetails);
+    }
+    private String ConvertDate(String date){
+        String dateConverted = "";
+        dateConverted += date.charAt(8);
+        dateConverted += date.charAt(9);
+        dateConverted += "/";
+        dateConverted += date.charAt(5);
+        dateConverted += date.charAt(6);
+        dateConverted += "/";
+        dateConverted += date.charAt(0);
+        dateConverted += date.charAt(1);
+        dateConverted += date.charAt(2);
+        dateConverted += date.charAt(3);
+        dateConverted += "  ";
+        dateConverted += date.charAt(11);
+        dateConverted += date.charAt(12);
+        dateConverted += date.charAt(13);
+        dateConverted += date.charAt(14);
+        dateConverted += date.charAt(15);
+
+        return dateConverted;
     }
 }
