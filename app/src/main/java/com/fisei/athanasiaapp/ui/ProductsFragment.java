@@ -68,7 +68,6 @@ public class ProductsFragment extends Fragment {
             listView.setAdapter(productArrayAdapter);
         }
     }
-
     private List<Product> QuitProductsWith0Qty(List<Product> list){
         for (int x = 0; x < list.size(); x++) {
             if(list.get(x).quantity == 0){

@@ -1,5 +1,6 @@
 package com.fisei.athanasiaapp.services;
 
+import com.fisei.athanasiaapp.objects.OrderDetail;
 import com.fisei.athanasiaapp.utilities.URLs;
 import com.fisei.athanasiaapp.objects.Product;
 
@@ -55,4 +56,43 @@ public class ProductService {
         }
         return productList;
     }
+    public static Product GetSpecifiedProductByID(int id){
+        Product product = new Product(0, "", "", 0, 0, 0, "");
+        HttpURLConnection connection = null;
+        try{
+            URL url = new URL(URLs.PRODUCTS + "/" + id);
+            connection = (HttpURLConnection) url.openConnection();
+            int responseCode = connection.getResponseCode();
+            StringBuilder response = new StringBuilder();
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                try(BufferedReader bR = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))){
+                    String responseLine = null;
+                    while((responseLine = bR.readLine()) != null){
+                        response.append(responseLine.trim());
+                    }
+                }
+                JSONObject data = new JSONObject(response.toString());
+                JSONArray list = data.getJSONArray("data");
+                for(int i = 0; i < list.length(); ++i){
+                    JSONObject products = list.getJSONObject(i);
+                    product = new Product(
+                            products.getInt("id"),
+                            products.getString("name"),
+                            products.getString("genre"),
+                            products.getInt("quantity"),
+                            products.getDouble("unitPrice"),
+                            products.getDouble("cost"),
+                            URLs.PRODUCTS_IMAGES + products.getString("genre"));
+                }
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null){
+                connection.disconnect();
+            }
+        }
+        return product;
+    }
+
 }

@@ -1,21 +1,17 @@
 package com.fisei.athanasiaapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
+import com.fisei.athanasiaapp.OrderDetailsActivity;
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.objects.Order;
-import com.fisei.athanasiaapp.objects.Product;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -24,6 +20,7 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         TextView orderDateView;
         TextView orderIDView;
         TextView orderTotalView;
+        Button orderInfoBtn;
     }
 
     public OrderArrayAdapter(Context context, List<Order> orderList) {
@@ -40,6 +37,7 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
             viewHolder.orderDateView = (TextView) convertView.findViewById(R.id.textViewOrderDate);
             viewHolder.orderIDView = (TextView) convertView.findViewById(R.id.textViewOrderId);
             viewHolder.orderTotalView = (TextView) convertView.findViewById(R.id.textViewOrderTotal);
+            viewHolder.orderInfoBtn = (Button) convertView.findViewById(R.id.btnOrderInfo);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -47,6 +45,18 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         viewHolder.orderDateView.setText(order.Date.toString());
         viewHolder.orderIDView.setText(String.format("%s", order.ID));
         viewHolder.orderTotalView.setText(String.format("%s", order.Total + " $"));
+        viewHolder.orderInfoBtn.setOnClickListener(view -> {
+            ShowOrderDetails(order);
+        });
         return convertView;
+    }
+
+    private void ShowOrderDetails(Order order){
+        Intent orderDetails = new Intent(getContext(), OrderDetailsActivity.class);
+        orderDetails.putExtra("orderID", order.ID);
+        orderDetails.putExtra("orderUserClient", order.UserClientID);
+        orderDetails.putExtra("orderDate", order.Date);
+        orderDetails.putExtra("orderTotal", order.Total);
+        getContext().startActivity(orderDetails);
     }
 }

@@ -5,8 +5,8 @@ import com.fisei.athanasiaapp.models.SaleDetails;
 import com.fisei.athanasiaapp.models.SaleRequest;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.Order;
+import com.fisei.athanasiaapp.objects.OrderDetail;
 import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.objects.UserClient;
 import com.fisei.athanasiaapp.utilities.URLs;
 
 import org.json.JSONArray;
@@ -20,11 +20,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SaleService {
@@ -63,11 +59,11 @@ public class SaleService {
         }
         return orderList;
     }
-    public static List<Order> GetSalesByUserID(int id){
-        List<Order> orderList = new ArrayList<>();
+    public static List<Product> GetSalesDetailsByID(int id){
+        List<Product> orderList = new ArrayList<>();
         HttpURLConnection connection = null;
         try{
-            URL url = new URL(URLs.SALES + "/" + id);
+            URL url = new URL(URLs.SALE_DETAILS + id);
             connection = (HttpURLConnection) url.openConnection();
             int responseCode = connection.getResponseCode();
             StringBuilder response = new StringBuilder();
@@ -82,11 +78,11 @@ public class SaleService {
                 JSONArray list = data.getJSONArray("data");
                 for(int i = 0; i < list.length(); ++i){
                     JSONObject orders = list.getJSONObject(i);
-                    orderList.add(new Order(
-                            orders.getInt("id"),
-                            orders.getString("date"),
-                            orders.getInt("iduserClient"),
-                            orders.getDouble("total")));
+                    orderList.add(new Product(
+                            orders.getInt("idproduct"),
+                           "", "",
+                            orders.getInt("quantity"),
+                            0, 0, ""));
                 }
             }
         } catch (IOException | JSONException e) {
@@ -98,7 +94,6 @@ public class SaleService {
         }
         return orderList;
     }
-
     public static boolean AddNewSale(SaleRequest sale){
         HttpURLConnection connection = null;
         try {

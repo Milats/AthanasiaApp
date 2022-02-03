@@ -12,4 +12,5 @@ public class URLs {
     public static final String PRODUCTS_IMAGES = "https://i.ibb.co/";
     //Sales
     public static final String SALES = "http://nilats-001-site1.itempurl.com/api/sale";
+    public static final String SALE_DETAILS = "http://nilats-001-site1.itempurl.com/api/saleDetails/";
 }
