@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         loginSuccesful.putExtra("token", userLogged.JWT);
         loginSuccesful.putExtra("admin", admin);
         startActivity(loginSuccesful);
+        finish();
     }
     private void InitializeViewComponents(){
         emailEditText = findViewById(R.id.editTextEmailLogin);

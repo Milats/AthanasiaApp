@@ -120,25 +120,50 @@ public class UserClientService {
             int responseCode = connection.getResponseCode();
             StringBuilder response = new StringBuilder();
             JSONObject jsonObject = null;
-            if(responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_BAD_REQUEST){
+            if(responseCode == HttpURLConnection.HTTP_OK){
                 try(BufferedReader bR = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))){
                     String responseLine = null;
                     while((responseLine = bR.readLine()) != null){
                         response.append(responseLine.trim());
                     }
                 }
+                responseAth.Success = true;
+            } else if(responseCode == HttpURLConnection.HTTP_BAD_REQUEST){
+                try(BufferedReader bR = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8))){
+                    String responseLine = null;
+                    while((responseLine = bR.readLine()) != null){
+                        response.append(responseLine.trim());
+                    }
+                }
                 jsonObject = new JSONObject(response.toString());
+                JSONObject errors = jsonObject.getJSONObject("errors");
+                boolean errorEmail = false;
+                String errorString = "";
+                try{
+                    String emailError = errors.getString("email");
+                    errorEmail = true;
+                    errorString = "Email already exists";
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try{
+                    String cedulaError = errors.getString("cedula");
+                    if(errorEmail && newUser.Cedula.length() < 10){
+                        errorString = "Email already exists\nInvalid cedula";
+                    } else if(newUser.Cedula.length() < 10){
+                        errorString = "Invalid cedula";
+                    } else {
+                        errorString = "Cedula already exists";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                responseAth.Message = errorString;
             }
-
-            if(responseCode == HttpURLConnection.HTTP_OK && jsonObject != null){
-
-            }
-            responseAth.Success = true;
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
         return responseAth;
     }
 }

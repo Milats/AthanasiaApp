@@ -8,5 +8,4 @@ public class ResponseAthanasia {
         this.Success = success;
         this.Message = message;
     }
-    public ResponseAthanasia(){}
 }

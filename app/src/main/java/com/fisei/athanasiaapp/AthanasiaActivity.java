@@ -1,16 +1,19 @@
 package com.fisei.athanasiaapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.UserClient;
 import com.fisei.athanasiaapp.services.UserClientService;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -60,6 +63,13 @@ public class AthanasiaActivity extends AppCompatActivity {
         return true;
     }
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout){
+            LogOut();
+        }
+        return true;
+    }
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_athanasia);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
@@ -92,5 +102,11 @@ public class AthanasiaActivity extends AppCompatActivity {
         userName.setText("ADMIN");
         TextView userEmail = (TextView) findViewById(R.id.textViewUserEmail);
         userEmail.setText("ADMIN");
+    }
+    private void LogOut(){
+        AthanasiaGlobal.ACTUAL_USER = new UserClient();
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
+        finish();
     }
 }
