@@ -14,6 +14,7 @@ import com.fisei.athanasiaapp.objects.OrderDetail;
 import com.fisei.athanasiaapp.objects.Product;
 import com.fisei.athanasiaapp.services.ProductService;
 import com.fisei.athanasiaapp.services.SaleService;
+import com.fisei.athanasiaapp.utilities.Utils;
 
 import org.json.JSONObject;
 
@@ -28,6 +29,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private TextView textViewOrderUserClient;
     private TextView textViewOrderDate;
     private TextView textViewOrderTotal;
+    private TextView textViewOrderTotalIVA;
     private ListView listViewOrderDetails;
 
     private OrderDetailsArrayAdapter orderArrayAdapter;
@@ -85,12 +87,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
         textViewOrderDate = (TextView) findViewById(R.id.textViewOrderInfoDate);
         textViewOrderTotal = (TextView) findViewById(R.id.textViewOrderInfoTotal);
         listViewOrderDetails = (ListView) findViewById(R.id.listViewOrderDetails);
+        textViewOrderTotalIVA = (TextView) findViewById(R.id.textViewOrderInfoTotalIVA);
         FillOrderHeader();
     }
     private void FillOrderHeader(){
-        textViewOrderID.setText(String.format("%s",bundle.getInt("orderID")));
-        textViewOrderUserClient.setText(String.format("%s",bundle.getInt("orderUserClient")));
-        textViewOrderDate.setText(String.format("%s",bundle.getString("orderDate")));
-        textViewOrderTotal.setText(String.format("%s",bundle.getDouble("orderTotal")));
+        textViewOrderID.setText(String.format("%s","Order ID: " + bundle.getInt("orderID")));
+        textViewOrderUserClient.setText(String.format("%s","Client ID: " + bundle.getInt("orderUserClient")));
+        textViewOrderDate.setText(String.format("%s","Date: " + Utils.ConvertDate(bundle.getString("orderDate"))));
+        textViewOrderTotal.setText(String.format("%s","Total: " + bundle.getDouble("orderTotal") + " $"));
+        textViewOrderTotalIVA.setText(String.format("%s","Total: " + bundle.getDouble("orderTotal") / 1.1 + " $"));
     }
 }
