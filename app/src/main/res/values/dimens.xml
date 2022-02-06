@@ -12,6 +12,7 @@
     <dimen name="product_button_height">60dp</dimen>
     <dimen name="product_image_width">240dp</dimen>
     <dimen name="product_info_margin">10dp</dimen>
+    <dimen name="checkout_space_height">80dp</dimen>
     <dimen name="checkout_button_height">70dp</dimen>
     //MyOrdersFragment
     <dimen name="order_height">130dp</dimen>

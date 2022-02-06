@@ -22,6 +22,7 @@ import com.fisei.athanasiaapp.models.SaleRequest;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.ShopCartItem;
 import com.fisei.athanasiaapp.services.SaleService;
+import com.fisei.athanasiaapp.services.ShoppingCartService;
 
 import org.json.JSONObject;
 
@@ -35,6 +36,7 @@ public class ShopCartFragment extends Fragment {
     private ListView listView;
     private TextView total;
     private Button checkout;
+    private Button saveCart;
 
     private Boolean SuccesfulSale = false;
 
@@ -51,11 +53,13 @@ public class ShopCartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop_cart, container, false);
         List<ShopCartItem> list = new ArrayList<>();
         checkout = view.findViewById(R.id.btnCheckout);
+        saveCart = view.findViewById(R.id.btnSaveCart);
         listView = (ListView) view.findViewById(R.id.listViewShopCartFragment);
         total = (TextView) view.findViewById(R.id.textViewTotalShop);
         itemArrayAdapter = new ShopItemArrayAdapter(getContext(), list);
 
         checkout.setOnClickListener(view1 -> { OpenDialog(); });
+        saveCart.setOnClickListener(view1 -> { ExecuteSaveCartTask();});
         itemArrayAdapter.clear();
         list = AthanasiaGlobal.SHOPPING_CART;
         itemArrayAdapter.addAll(list);
@@ -63,11 +67,13 @@ public class ShopCartFragment extends Fragment {
         listView.setAdapter(itemArrayAdapter);
 
         checkout.setEnabled(!CheckIsListViewIsEmpty(listView));
+        saveCart.setEnabled(!CheckIsListViewIsEmpty(listView));
         UpdateTotalView(total);
         itemArrayAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
                 checkout.setEnabled(!CheckIsListViewIsEmpty(listView));
+                saveCart.setEnabled(!CheckIsListViewIsEmpty(listView));
                 UpdateTotalView(total);
             }
         });
@@ -97,6 +103,10 @@ public class ShopCartFragment extends Fragment {
         AddSaleTask task = new AddSaleTask();
         task.execute();
     }
+    public void ExecuteSaveCartTask(){
+        SaveCartTask saveCartTask = new SaveCartTask();
+        saveCartTask.execute();
+    }
     class AddSaleTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
@@ -108,6 +118,7 @@ public class ShopCartFragment extends Fragment {
             sale.UserClientID = AthanasiaGlobal.ACTUAL_USER.ID;
             sale.SaleDetails = details;
             SuccesfulSale = SaleService.AddNewSale(sale);
+            ShoppingCartService.DeleteCart(AthanasiaGlobal.ACTUAL_USER.ID);
             return null;
         }
         @Override
@@ -122,4 +133,21 @@ public class ShopCartFragment extends Fragment {
             SuccesfulSale = false;
         }
     }
+    class SaveCartTask extends AsyncTask<URL, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(URL... params) {
+            SuccesfulSale = ShoppingCartService.SaveCart(AthanasiaGlobal.SHOPPING_CART, AthanasiaGlobal.ACTUAL_USER.ID);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(JSONObject jsonObject){
+            if(SuccesfulSale){
+                Toast.makeText(getContext(), "Cart saved", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Cart cannot be saved", Toast.LENGTH_SHORT).show();
+            }
+            SuccesfulSale = false;
+        }
+    }
+
 }

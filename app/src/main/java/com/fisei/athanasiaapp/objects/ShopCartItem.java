@@ -16,4 +16,9 @@ public class ShopCartItem {
         this.UnitPrice = unitPrice;
         this.MaxQty = maxQty;
     }
+
+    public ShopCartItem(int id, int qty){
+        this.Id = id;
+        this.Quantity = qty;
+    }
 }

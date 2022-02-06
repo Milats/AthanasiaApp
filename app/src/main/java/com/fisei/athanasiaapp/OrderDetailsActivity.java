@@ -94,7 +94,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         textViewOrderID.setText(String.format("%s","Order ID: " + bundle.getInt("orderID")));
         textViewOrderUserClient.setText(String.format("%s","Client ID: " + bundle.getInt("orderUserClient")));
         textViewOrderDate.setText(String.format("%s","Date: " + Utils.ConvertDate(bundle.getString("orderDate"))));
-        textViewOrderTotal.setText(String.format("%s","Total: " + bundle.getDouble("orderTotal") + " $"));
-        textViewOrderTotalIVA.setText(String.format("%s","Total: " + bundle.getDouble("orderTotal") / 1.1 + " $"));
+        textViewOrderTotal.setText(String.format("%s","Total IVA: " + bundle.getDouble("orderTotal") + " $"));
+        textViewOrderTotalIVA.setText("Total: " + String.format("%.2f",bundle.getDouble("orderTotal") / 1.1 )+ " $");
     }
 }

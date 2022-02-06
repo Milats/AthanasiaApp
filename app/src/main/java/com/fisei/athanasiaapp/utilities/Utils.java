@@ -22,4 +22,11 @@ public class Utils {
         dateConverted += date.charAt(15);
         return dateConverted;
     }
+    public static String CleanString(String toClean){
+        String a = "";
+        a = toClean.replace("\"", "");
+        a = a.replace("[", "");
+        a = a.replace("]", "");
+        return a;
+    }
 }

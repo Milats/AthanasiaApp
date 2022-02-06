@@ -8,8 +8,8 @@
     <string name="label_login">Log In</string>
     <string name="label_signup">Sign Up</string>
     <string name="label_new_user">New? Create an account here!</string>
-    <string name="label_wrong_email_password">The email or password are invalid.</string>
-    <string name="email_example">example@athanasia.com</string>
+    <string name="label_wrong_email_password">Invalid email or password</string>
+    <string name="email_example">example@ath.com</string>
     <string name="password_example">*********</string>
     //Sign Up
     <string name="label_register">Register</string>
@@ -17,6 +17,7 @@
     <string name="label_cedula">Cédula</string>
     <string name="name_example">José</string>
     <string name="Dominio">@ath.com</string>
+    <string name="hint_cedula">10 digits</string>
     <string name="fields_empty_error">One or more fields are empty</string>
     //Products Fragment
     <string name="product_image_description">Image that show the product</string>
@@ -24,6 +25,7 @@
     <string name="connect_error">Unable to connect to AthanasiaApi.</string>
     //ShopCart fragment
     <string name="checkout_button_text">Checkout</string>
+    <string name="save_button_text">Save Cart</string>
     //Drawer
     <string name="title_activity_athanasia">AthanasiaActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

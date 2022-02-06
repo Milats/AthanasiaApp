@@ -1,22 +1,19 @@
 package com.fisei.athanasiaapp.services;
 
-import android.util.Log;
-
 import com.fisei.athanasiaapp.models.ResponseAthanasia;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.utilities.URLs;
 import com.fisei.athanasiaapp.objects.UserClient;
+import com.fisei.athanasiaapp.utilities.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -71,6 +68,7 @@ public class UserClientService {
         try{
             URL url = new URL(URLs.CLIENT_BY_ID + id);
             connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Authorization","Bearer " + AthanasiaGlobal.ACTUAL_USER.JWT);
             int responseCode = connection.getResponseCode();
             StringBuilder response = new StringBuilder();
             if(responseCode == HttpURLConnection.HTTP_OK){
@@ -137,30 +135,24 @@ public class UserClientService {
                 }
                 jsonObject = new JSONObject(response.toString());
                 JSONObject errors = jsonObject.getJSONObject("errors");
-                boolean errorEmail = false;
-                String errorString = "";
+                responseAth.Message = "";
+                boolean emailError = false;
                 try{
-                    String emailError = errors.getString("email");
-                    errorEmail = true;
-                    errorString = "Email already exists";
+                    responseAth.Message += Utils.CleanString(errors.getString("email"));
+                    emailError = true;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try{
-                    String cedulaError = errors.getString("cedula");
-                    if(errorEmail && newUser.Cedula.length() < 10){
-                        errorString = "Email already exists\nInvalid cedula";
-                    } else if(newUser.Cedula.length() < 10){
-                        errorString = "Invalid cedula";
+                    if (emailError){
+                        responseAth.Message += "\n" + Utils.CleanString(errors.getString("cedula"));
                     } else {
-                        errorString = "Cedula already exists";
+                        responseAth.Message += Utils.CleanString(errors.getString("cedula"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                responseAth.Message = errorString;
             }
-
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.OrderArrayAdapter;
 import com.fisei.athanasiaapp.adapters.ProductArrayAdapter;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
 import com.fisei.athanasiaapp.objects.Order;
 import com.fisei.athanasiaapp.objects.Product;
 import com.fisei.athanasiaapp.services.ProductService;
@@ -29,6 +30,7 @@ public class MyOrdersFragment extends Fragment {
     private List<Order> myOrderList = new ArrayList<>();
     private OrderArrayAdapter orderArrayAdapter;
     private ListView listView;
+    private Bundle bundle = new Bundle();
 
     public MyOrdersFragment() {
     }
@@ -56,7 +58,11 @@ public class MyOrdersFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(URL... params) {
             myOrderList.clear();
-            myOrderList = SaleService.GetAllSales();
+            if(AthanasiaGlobal.ADMIN_PRIVILEGES){
+                myOrderList = SaleService.GetAllSales();
+            } else {
+                myOrderList = SaleService.GetSalesByUserID();
+            }
             return null;
         }
         @Override
