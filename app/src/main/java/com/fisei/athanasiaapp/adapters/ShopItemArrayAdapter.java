@@ -62,7 +62,7 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
             new LoadImageTask(viewHolder.shopCartItemImage).execute(item.ImageURL);
         }
         viewHolder.shopCartItemName.setText(item.Name);
-        viewHolder.shopCartItemUnitPrice.setText(String.format("%s", "Unit Price: " + item.UnitPrice + " $"));
+        viewHolder.shopCartItemUnitPrice.setText(String.format("%s", item.UnitPrice + " $"));
         viewHolder.shopCartItemQty.setText(String.format("%s", item.Quantity));
         viewHolder.shopCartDeleteItem.setOnClickListener(view -> { DeleteFromCart(item.Id); });
         viewHolder.shopCartItemPlusQty.setOnClickListener(view ->{ AddQty(item.Id, item.MaxQty);} );

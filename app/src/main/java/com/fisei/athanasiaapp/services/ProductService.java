@@ -44,7 +44,7 @@ public class ProductService {
                             products.getInt("quantity"),
                             products.getDouble("unitPrice"),
                             products.getDouble("cost"),
-                            URLs.PRODUCTS_IMAGES + products.getString("genre")));
+                            URLs.PRODUCTS_IMAGES + products.getString("imageURL")));
                 }
             }
         } catch (IOException | JSONException e) {
@@ -82,7 +82,7 @@ public class ProductService {
                             products.getInt("quantity"),
                             products.getDouble("unitPrice"),
                             products.getDouble("cost"),
-                            URLs.PRODUCTS_IMAGES + products.getString("genre"));
+                            URLs.PRODUCTS_IMAGES + products.getString("imageURL"));
                 }
             }
         } catch (IOException | JSONException e) {

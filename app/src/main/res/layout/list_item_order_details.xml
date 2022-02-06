@@ -11,18 +11,60 @@
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_margin="@dimen/product_info_margin">
-        <TextView
-            android:id="@+id/textViewOrderDetailName"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
-        <TextView
-            android:id="@+id/textViewOrderDetailQuantity"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewOrderDetailName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
-        <TextView
-            android:id="@+id/textViewOrderDetailUnitPrice"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/label_detail_quantity"
+                android:textAlignment="textEnd"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewOrderDetailQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/label_detail_unit_price"
+                android:textAlignment="textEnd"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textViewOrderDetailUnitPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center" />
+        </LinearLayout>
+
     </LinearLayout>
         <ImageView
             android:id="@+id/imageViewOrderDetail"

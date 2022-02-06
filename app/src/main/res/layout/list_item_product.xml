@@ -12,25 +12,74 @@
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_margin="@dimen/product_info_margin">
-        <TextView
-            android:id="@+id/productNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
 
-        <TextView
-            android:id="@+id/productUnitPriceTextView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
-        <TextView
-            android:id="@+id/productQtyTextView"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/productNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_texts" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_actual_quantity"
+                android:textAlignment="textStart"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/productUnitPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_unit_price"
+                android:textAlignment="textStart"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/productQtyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/productAddToCartBtn"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_button_height"
-            android:drawableTop="@drawable/ic_baseline_shopping_cart_24" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_baseline_shopping_cart_24"
+            android:contentDescription="@string/label_add_to_Cart"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/productImageView"

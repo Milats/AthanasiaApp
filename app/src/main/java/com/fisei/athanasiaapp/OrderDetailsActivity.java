@@ -87,14 +87,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
         textViewOrderDate = (TextView) findViewById(R.id.textViewOrderInfoDate);
         textViewOrderTotal = (TextView) findViewById(R.id.textViewOrderInfoTotal);
         listViewOrderDetails = (ListView) findViewById(R.id.listViewOrderDetails);
-        textViewOrderTotalIVA = (TextView) findViewById(R.id.textViewOrderInfoTotalIVA);
+        textViewOrderTotalIVA = (TextView) findViewById(R.id.textViewOrderInfoTotalIva);
         FillOrderHeader();
     }
     private void FillOrderHeader(){
-        textViewOrderID.setText(String.format("%s","Order ID: " + bundle.getInt("orderID")));
-        textViewOrderUserClient.setText(String.format("%s","Client ID: " + bundle.getInt("orderUserClient")));
-        textViewOrderDate.setText(String.format("%s","Date: " + Utils.ConvertDate(bundle.getString("orderDate"))));
-        textViewOrderTotal.setText(String.format("%s","Total IVA: " + bundle.getDouble("orderTotal") + " $"));
-        textViewOrderTotalIVA.setText("Total: " + String.format("%.2f",bundle.getDouble("orderTotal") / 1.1 )+ " $");
+        textViewOrderID.setText(String.format("%s",bundle.getInt("orderID")));
+        textViewOrderUserClient.setText(String.format("%s",bundle.getInt("orderUserClient")));
+        textViewOrderDate.setText(String.format("%s",Utils.ConvertDate(bundle.getString("orderDate"))));
+        textViewOrderTotal.setText(String.format("%s",bundle.getDouble("orderTotal") + " $"));
+        textViewOrderTotalIVA.setText(String.format("%.2f",bundle.getDouble("orderTotal") / 1.1 )+ " $");
     }
 }

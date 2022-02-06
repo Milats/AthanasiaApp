@@ -63,8 +63,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             new LoadImageTask(viewHolder.productImageView).execute(product.imageURL);
         }
         viewHolder.productNameView.setText(product.name);
-        viewHolder.productUnitPriceView.setText(String.format("%s", "Unit Price: " + product.unitPrice + " $"));
-        viewHolder.productQtyView.setText(String.format("%s", "Quantity: " + product.quantity));
+        viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice + " $"));
+        viewHolder.productQtyView.setText(String.format("%s", product.quantity));
         UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(product.id));
         viewHolder.productAddToCartButton.setOnClickListener(view -> {
             UnableButton(viewHolder.productAddToCartButton, false);

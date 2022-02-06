@@ -50,8 +50,8 @@ public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail> {
             new LoadImageTask(viewHolder.orderDetailImageView).execute(orderDetail.ImageURL);
         }
         viewHolder.orderDetailNameTextView.setText(orderDetail.Name);
-        viewHolder.orderDetailQuantityTextView.setText(String.format("%s", "Quantity: " + orderDetail.Quantity));
-        viewHolder.orderDetailUnitPriceTextView.setText(String.format("%s", "Unit Price: " + orderDetail.UnitPrice) + " $");
+        viewHolder.orderDetailQuantityTextView.setText(String.format("%s", orderDetail.Quantity));
+        viewHolder.orderDetailUnitPriceTextView.setText(String.format("%s", orderDetail.UnitPrice) + " $");
         return convertView;
     }
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {

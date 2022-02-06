@@ -43,9 +43,9 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.orderDateView.setText("Date: " + Utils.ConvertDate(order.Date));
-        viewHolder.orderIDView.setText(String.format("%s", "Order ID: " +  order.ID));
-        viewHolder.orderTotalView.setText(String.format("%s", "Total: " + order.Total + " $"));
+        viewHolder.orderDateView.setText(Utils.ConvertDate(order.Date));
+        viewHolder.orderIDView.setText(String.format("%s", order.ID));
+        viewHolder.orderTotalView.setText(String.format("%s", order.Total + " $"));
         viewHolder.orderInfoBtn.setOnClickListener(view -> {
             ShowOrderDetails(order);
         });
