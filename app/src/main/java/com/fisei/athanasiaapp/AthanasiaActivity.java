@@ -52,6 +52,7 @@ public class AthanasiaActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         if(AthanasiaGlobal.ADMIN_PRIVILEGES){
             Menu menuNav=navigationView.getMenu();
             menuNav.removeItem(R.id.nav_shop_cart);
@@ -65,11 +66,11 @@ public class AthanasiaActivity extends AppCompatActivity {
         return true;
     }
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout){
             LogOut();
         }
-        return true;
+        return false;
     }
     @Override
     public boolean onSupportNavigateUp() {
